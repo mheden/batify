@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Build
+      run: python batify.py --script batify.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: script-output
+        path: dist/batify.bat
+        retention-days: 5
+
+    - name: Build and run examples
+      run: |
+        "dist/batify.bat" --script examples/hello_world.py --outdir test
+        "test/hello_world.bat"
+        "test/batify.bat" --script examples/hello_world_req.py --requirements examples/requirements.txt
+        "test/hello_world_req.bat"
+        "test/batify.bat" --script examples/hello_world_pep723.py
+        "test/hello_world_pep723.bat"

@@ -1,0 +1,2 @@
+requests<3
+"rich"
