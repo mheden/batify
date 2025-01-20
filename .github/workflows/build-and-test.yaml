@@ -31,9 +31,9 @@ jobs:
 
     - name: Build and run examples
       run: |
-        "dist/batify.bat" --script examples/hello_world.py --outdir test
-        "test/hello_world.bat"
-        "test/batify.bat" --script examples/hello_world_req.py --requirements examples/requirements.txt
-        "test/hello_world_req.bat"
-        "test/batify.bat" --script examples/hello_world_pep723.py
-        "test/hello_world_pep723.bat"
+        .\dist\batify.bat --script examples/hello_world.py --outdir test
+        .\test\hello_world.bat
+        .\dist\batify.bat --script examples/hello_world_req.py --requirements examples/requirements.txt --outdir test
+        .\test\hello_world_req.bat
+        .\dist\batify.bat --script examples/hello_world_pep723.py --outdir test
+        .\test\hello_world_pep723.bat
