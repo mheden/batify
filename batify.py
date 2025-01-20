@@ -215,8 +215,13 @@ if __name__ == "__main__":
             header = header.replace(
                 "{{requirements}}", " ".join('"%s"' % d for d in dependencies)
             )
-            header = header.replace("{{pypi-host}}", f"--trusted-host={args.pypi_host}")
-            header = header.replace("{{pypi-url}}", f"--index-url={args.pypi_url}")
+            header = header.replace(
+                "{{pypi-host}}",
+                f"--trusted-host={args.pypi_host}" if args.pypi_host else "",
+            )
+            header = header.replace(
+                "{{pypi-url}}", f"--index-url={args.pypi_url}" if args.pypi_url else ""
+            )
             header = header.replace("{{gitversion}}", git_version())
             f.write(header)
         f.write(scriptdata)
